@@ -10,11 +10,11 @@ class Mario : public Character {
 public:
     Mario();
     void jump();
-    void update(const World& world);  // Updates Mario's position based on world collision logic
-    void move(float dx, float dy);    // Moves Mario by dx, dy
+    void update(const World& world);  // updates Mario's position based on world collision logic
+    void move(float , float );    // moves Mario by dx, dy
     void draw(sf::RenderWindow& window);
-    sf::Vector2f getVelocity() const;  // Getter for velocity
-    void setVerticalVelocity(float vy);  // Setter for vertical velocity
+    sf::Vector2f getVelocity() const;  // getter for velocity
+    void setVerticalVelocity(float vy);  // setter for vertical velocity
 
 
 private:
@@ -29,9 +29,9 @@ private:
     int jumpCount = 0;
     const int max_jumps = 2;
 
-    float platformY;  // Height of the ground or platform
+    float platformY;  // height of the ground or platform
 
-    float velocity; // Vertical velocity    
+    float velocity; // vertical velocity    
 };
 
 #endif
