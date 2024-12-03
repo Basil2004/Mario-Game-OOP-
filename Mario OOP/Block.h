@@ -9,7 +9,7 @@ public:
         Brick, Question, Empty, Grass_Top, Pipe_Top_Left, Pipe_Top_Right, Pipe_Left, Pipe_Right
     };
 
-    static const int TILE_SIZE;  // Add TILE_SIZE as a static constant
+    static const int TILE_SIZE;  
 
     Block(Type type, int x, int y);
     void draw(sf::RenderWindow& window);
