@@ -16,42 +16,42 @@ void Mario::loadTextures() {
 }
 
 void Mario::jump() {
-    // Ensure Mario can only jump if he is alive and on the ground
+    //Mario can only jump if he is alive and on the ground
     if (isAlive() && onGround) {
-        velocity = -15.f;  // Initial jump velocity
+        velocity = -15.f;  // initial jump velocity
         onGround = false;  // Mario is now in the air
     }
 }
 
-void Mario::move(float dx, float dy) {
-    x += dx;  // Update horizontal position
-    y += dy;  // Update vertical position
-    sprite.setPosition(x, y);  // Update sprite position
+void Mario::move(float x, float y) {
+    this->x += x;  // updates horizontal position
+    this->y += y;  // updates vertical position
+    sprite.setPosition(this->x, this->y);  // update sprite position
 }
 
 void Mario::update(const World& world) {
     if (!isAlive()) return;
 
-    // Apply gravity if not on the ground
+    // applying gravity if not on the ground
     if (!onGround) {
-        velocity += 0.5f;  // Gravity effect
+        velocity += 0.5f;  // gravity effect
     }
     y += velocity;
 
-    // Handle horizontal movement
+    // handling horizontal movement
     float horizontalMovement = 0.f;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        horizontalMovement -= 5.f;  // Move left
+        horizontalMovement -= 5.f;  //move left
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        horizontalMovement += 5.f;  // Move right
+        horizontalMovement += 5.f;  //move right
     }
-    x += horizontalMovement;  // Apply horizontal movement
+    x += horizontalMovement;  // applying horizontal movement
 
-    // Assume Mario is in the air unless proven otherwise
+    // assuming Mario is in the air unless proven otherwise
     onGround = false;
 
-    // Check collisions with blocks in the world
+    // to check collisions with blocks in the world :)
     const auto& map = world.getMap();
     for (const auto& row : map) {
         for (const auto& block : row) {
@@ -59,30 +59,30 @@ void Mario::update(const World& world) {
                 sf::FloatRect blockBounds = block->getBounds();
                 sf::FloatRect marioBounds = getBounds();
 
-                // Check for vertical collision (hitting head on a block)
+                // check for vertical collision (hitting head on a block)
                 if (marioBounds.intersects(blockBounds) && velocity < 0) {
-                    y = blockBounds.top + blockBounds.height;  // Adjust position
-                    velocity = 0.f;  // Stop vertical movement
+                    y = blockBounds.top + blockBounds.height;  // adjusts position
+                    velocity = 0.f;  // stops vertical movement
                 }
 
-                // Check for vertical collision (landing on a block)
+                // checking for vertical collision -(landing on a block)
                 if (marioBounds.intersects(blockBounds) && velocity > 0) {
-                    y = blockBounds.top - marioBounds.height;  // Adjust position
-                    velocity = 0.f;  // Stop vertical movement
-                    onGround = true;  // Mark as on the ground
+                    y = blockBounds.top - marioBounds.height;  // adjust the position
+                    velocity = 0.f;  // stop vertical movement
+                    onGround = true;  // mark as on the ground
                 }
             }
         }
     }
 
-    // Check if Mario has fallen below the screen
+    // check if Mario has fallen below the screen
     if (y > world.bottomBoundary()) {
-        // Mark Mario as dead
+        // mark Mario as dead
         setHealth(0);
         velocity = 0.f;
     }
 
-    // Keep Mario within world boundaries
+    // keep Mario within world boundaries
     if (this->x < world.leftBoundary()) {
         this->x = world.leftBoundary();
     } else if (this->x + getBounds().width > world.rightBoundary()) {
@@ -99,13 +99,13 @@ void Mario::update(const World& world) {
 
 void Mario::setMovementTexture() {
     if (!isAlive()) {
-        sprite.setTexture(deadTexture);  // Mario is dead
+        sprite.setTexture(deadTexture);  // mario is dead
     } else if (!onGround) {
-        sprite.setTexture(jumpingTexture);  // Mario is in the air (jumping/falling)
+        sprite.setTexture(jumpingTexture);  // mario is in the air (jumping/falling)
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        sprite.setTexture(movingTexture);  // Mario is walking
+        sprite.setTexture(movingTexture);  // mario is walking
     } else {
-        sprite.setTexture(idleTexture);  // Mario is idle
+        sprite.setTexture(idleTexture);  // mario is idle
     }
 }
 
@@ -114,9 +114,9 @@ void Mario::draw(sf::RenderWindow& window) {
 }
 
 sf::Vector2f Mario::getVelocity() const {
-    return sf::Vector2f(0.f, velocity);  // Return velocity as a vector (x = 0 as horizontal velocity is not tracked here)
+    return sf::Vector2f(0.f, velocity);  // return velocity as a vector (x = 0 as horizontal velocity is not tracked here)
 }
 
 void Mario::setVerticalVelocity(float vy) {
-    velocity = vy;  // Set the vertical velocity
+    velocity = vy;  // set the vertical velocity
 }
