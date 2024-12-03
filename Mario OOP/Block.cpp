@@ -1,8 +1,7 @@
 #include "Block.h"
 #include <iostream>
-
-// Define TILE_SIZE
-const int Block::TILE_SIZE = 32;  // Ensure this matches your intended block size in pixels
+using namespace std;
+const int Block::TILE_SIZE = 32;  // this matches block size in pixels
 
 Block::Block(Type type, int x, int y) {
     std::string texturePath;
@@ -23,7 +22,7 @@ Block::Block(Type type, int x, int y) {
 
     sprite.setTexture(texture);
 
-    // Scale the sprite to fit TILE_SIZE
+    // scaling the sprite to fit TILE_SIZE
     sf::Vector2u textureSize = texture.getSize();
     float scaleX = static_cast<float>(TILE_SIZE) / textureSize.x;
     float scaleY = static_cast<float>(TILE_SIZE) / textureSize.y;
