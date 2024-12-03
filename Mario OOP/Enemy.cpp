@@ -8,19 +8,19 @@ Enemy::Enemy(float startX, float startY)
         std::cerr << "Error loading enemy textures!" << std::endl;
     }
 
-    sprite.setTexture(aliveTexture);  // Set initial texture
-    sprite.setPosition(x, y);         // Set initial position
+    sprite.setTexture(aliveTexture);  // setting initial texture
+    sprite.setPosition(x, y);         // setting initial position
 }
 
 void Enemy::update(float marioX, float screenLeft, float screenRight) {
-    if (dead) return;  // Do nothing if the enemy is dead
+    if (dead) return;  // do nothing if the enemy is dead
 
-    // Enemy moves back and forth
+    // enemy moves back and forth
     x += speed;
 
-    // Reverse direction if at screen edges
+    // reverse direction if at screen edges
     if (x < screenLeft || x + sprite.getGlobalBounds().width > screenRight) {
-        speed = -speed;  // Reverse direction
+        speed = -speed;  // reverses direction
     }
 
     sprite.setPosition(x, y);
@@ -32,7 +32,7 @@ void Enemy::draw(sf::RenderWindow& window) const {
 
 void Enemy::die() {
     dead = true;
-    sprite.setTexture(deadTexture);  // Change texture to "dead" state
+    sprite.setTexture(deadTexture);  // change texture to "dead" state
 }
 
 bool Enemy::isDead() const {
