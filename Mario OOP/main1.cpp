@@ -2,20 +2,20 @@
 #include <SFML/Audio.hpp>
 #include "Mario.h"
 #include "Platform.h"
-#include "Enemy.h"  // Include the Enemy header file
+#include "Enemy.h" 
 #include <iostream>
-#include <vector>  // Include vector for managing enemies
-#include <cstdlib> // For random number generation
-#include <ctime>   // For random seed
+#include <vector>  
+#include <cstdlib> 
+#include <ctime>   
 
-std::vector<Enemy> enemies;  // Vector to store enemies
+std::vector<Enemy> enemies;
 
-// Function to spawn enemies
+// Enemy spawn function
 void spawnEnemy(float screenLeft, float screenRight) {
     float randomX = screenLeft + rand() % static_cast<int>(screenRight - screenLeft - 32);  // Random X coordinate
-    float platformY = 500.f;  // Replace with the known Y position of your bottom platform
-    float enemyY = platformY - 32;  // Adjust for the enemy's height (assuming 32px)
-    enemies.emplace_back(randomX, enemyY);  // Add the enemy to the vector
+    float platformY = 500.f;  
+    float enemyY = platformY - 32; 
+    enemies.emplace_back(randomX, enemyY); 
 }
 
 int main() {
